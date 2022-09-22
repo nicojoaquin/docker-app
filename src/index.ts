@@ -11,9 +11,11 @@ const app: Express = express();
 const PORT = process.env.PORT || 4000;
 
 app.get("/", async (_, res: Response) => {
-  const table = await AppDataSource.query(
-    "SELECT users.id, users.name, users.created_at, last_names.last_name, last_names.id as last_names_id from users RIGHT JOIN last_names ON users.last_name_id = last_names.id ORDER BY users.id"
+  AppDataSource.query(
+    "CREATE TABLE IF NOT EXISTS users (id int NOT NULL AUTO_INCREMENT PRIMARY KEY, name VARCHAR(200))"
   );
+
+  const table = await AppDataSource.query("SELECT * from users");
   res.send(table);
 });
 

@@ -12,7 +12,11 @@
     "clean": "docker rm $(docker ps -a -q) && docker volume prune -f",
     "reset": "yarn stop && yarn clean",
     "restart": "yarn stop && yarn dev",
-    "lint": "eslint . --ext .ts"
+    "lint": "eslint . --ext .ts",
+    "typeorm": "typeorm-ts-node-esm -d ./src/ormConfig",
+    "migration:generate": "npm run typeorm migration:generate ./src/migrations/migrations && npm run build",
+    "migration:up": "npm run typeorm migration:run",
+    "migration:down": "npm run typeorm migration:revert"
   },
   "dependencies": {
     "@typescript-eslint/eslint-plugin": "^5.38.0",
