@@ -29,6 +29,8 @@ services:
     networks:
       - docker-app
   node-app:
+    container_name:
+      ${NODE_CONTAINER_NAME}
     build: .
     image: node-app
     ports:
