@@ -17,7 +17,7 @@
 
 4. yarn install
 
-5. yarn dev for starting db and node app (if there is a db connection error do cntrl C and yarn restart)
+5. yarn dev for starting db and node app
 
 if db connection error:
 
