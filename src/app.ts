@@ -10,10 +10,12 @@ app.use(express.json());
 
 //router
 app.use(apiRouter);
-app.use(({ path }, res) =>
-  res
-    .status(404)
-    .json({ message: `Route '${path.split("/").pop()}' not found` })
-);
+app.use(({ path }, res) => {
+  const lastPartRoute = path.split("/").pop();
+
+  const routeName = lastPartRoute ? ` '${lastPartRoute}'` : "";
+
+  res.status(404).json({ message: `Route${routeName} not found` });
+});
 
 export default app;

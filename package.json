@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "build": "yarn ttsc",
+    "build": "rm -rf ./build && ttsc --project ./",
     "start": "node build/index.js",
     "develop": "NODE_PATH=src tsc-watch --noClear -p ./tsconfig.json --onSuccess \"ts-node src/index.ts\"",
     "node:bash": "sh container-exec.sh",

@@ -3,10 +3,11 @@ import fs from "fs";
 import { NextFunction, Request, RequestHandler, Response } from "express";
 import { Router } from "express";
 import { privaticeRoute } from "middlewares/private";
+import { importDynamicRoute } from "utils/helpers";
 
 const router = Router();
 
-//use express router whether or not it has a middleware function
+// use express router whether or not it has a middleware function
 const useRoute = async (
   prefix: string,
   importPath: string,
@@ -22,7 +23,7 @@ const useRoute = async (
     router.use(
       `/api/v1/${prefix}`,
       middlewareFunction,
-      (await import(`${importPath}`)).default
+      await importDynamicRoute(importPath)
     );
 };
 
@@ -40,8 +41,9 @@ const isPrivateRoute = (routeName: string) =>
 //maps all routes
 fs.readdirSync(__dirname).map(async (fileName) => {
   const isPrivate = isPrivateRoute(fileName);
+
   const relativePrefix = getRoutePrefix(fileName, isPrivate);
-  const importPath = `routes/${getRoutePrefix(fileName)}`;
+  const importPath = `${__dirname}/${getRoutePrefix(fileName)}`;
 
   useRoute(relativePrefix, importPath, isPrivate ? privaticeRoute : null);
 });
