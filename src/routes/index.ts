@@ -35,7 +35,7 @@ const getRoutePrefix = (routeName: string, isPrivate = false): string => {
 
 //detects routes whose name ends with "private" after the last -
 const isPrivateRoute = (routeName: string) =>
-  getRoutePrefix(routeName).split("-").pop() === "private";
+  getRoutePrefix(routeName).split("-").pop()?.includes("private");
 
 //maps all routes
 fs.readdirSync(__dirname).map(async (fileName) => {
