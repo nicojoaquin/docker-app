@@ -10,6 +10,10 @@ app.use(express.json());
 
 //router
 app.use(apiRouter);
-app.use((_, res) => res.status(404).json({ message: "Not found" }));
+app.use(({ path }, res) =>
+  res
+    .status(404)
+    .json({ message: `Route '${path.split("/").pop()}' not found` })
+);
 
 export default app;
