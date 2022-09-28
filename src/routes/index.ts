@@ -9,8 +9,8 @@ const router = Router();
 //use express router whether or not it has a middleware function
 const useRoute = async (
   prefix: string,
-  middleware: RequestHandler | null,
-  importPath: string
+  importPath: string,
+  middleware: RequestHandler | null = null
 ) => {
   const middlewareFunction = (
     req: Request,
@@ -43,7 +43,7 @@ fs.readdirSync(__dirname).map(async (fileName) => {
   const relativePrefix = getRoutePrefix(fileName, isPrivate);
   const importPath = `routes/${getRoutePrefix(fileName)}`;
 
-  useRoute(relativePrefix, isPrivate ? privaticeRoute : null, importPath);
+  useRoute(relativePrefix, importPath, isPrivate ? privaticeRoute : null);
 });
 
 export default router;
